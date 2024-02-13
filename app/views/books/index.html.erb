@@ -1,4 +1,5 @@
 <!--投稿＆一覧ページ-->　
+<!--フラッシュメッセージ-->
 <% if flash[:notice] %>
   <p><%= flash[:notice] %></p>
 <% end %>
@@ -35,7 +36,7 @@
 
 <h1>New book</h1>
 
- <!--3-8「バリデーションの設定」-->
+ <!--3-8[error]バリデーションの設定-->
  
 <% if @book.errors.any? %> 
   <%= @book.errors.count %> errors prohibited this book from being saved:

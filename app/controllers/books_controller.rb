@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  
   def new
     @book = Book.new
   end
@@ -10,7 +11,7 @@ class BooksController < ApplicationController
     redirect_to book_path(@book.id)
     else
       @books = Book.all
-      render 'index','edit'
+      render 'index' #indexのバリデーション実装済み
     end
   end
   
@@ -25,7 +26,6 @@ class BooksController < ApplicationController
   
   def edit
     @book = Book.find(params[:id])
-  
   end
   
   def destroy
@@ -36,13 +36,12 @@ class BooksController < ApplicationController
   end
   
   def update
-    book = Book.find(params[:id])
-    if book.update(book_params) && book.valid?
-      flash[:notice] = "Book was successfully updated."
+    @book = Book.find(params[:id]) #bookという箱からparamus idのデータをみつける
+      if @book.update(book_params) #もし更新ができなかったら
+      redirect_to book_path(@book.id), notice: "Book was successfully updated."
       else
-        flash[:notice] = "Error."
+        render :edit #editのバリデーション実装済み
       end
-      redirect_to book_path(book.id)
   end
   
   private
